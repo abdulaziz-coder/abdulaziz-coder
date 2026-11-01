@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from sqlalchemy import Boolean, DateTime, String, Text
+from sqlalchemy import Boolean, CheckConstraint, DateTime, Integer, String, Text
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -17,12 +17,15 @@ class Base(DeclarativeBase):
 
 class EnquiryRecord(Base):
     __tablename__ = "enquiries"
+    __table_args__ = (CheckConstraint("grade BETWEEN 1 AND 11", name="ck_enquiries_grade"),)
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid4()))
     idempotency_key: Mapped[str] = mapped_column(String(36), unique=True)
     request_hash: Mapped[str] = mapped_column(String(64))
     name: Mapped[str] = mapped_column(String(120))
     email: Mapped[str] = mapped_column(String(200))
     stage: Mapped[str] = mapped_column(String(40))
+    # Older enquiries have no grade recorded; all new API requests require one.
+    grade: Mapped[int | None] = mapped_column(Integer, nullable=True)
     message: Mapped[str] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(40), default="received")
     dispatched: Mapped[bool] = mapped_column(Boolean, default=False, index=True)

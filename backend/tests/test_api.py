@@ -8,21 +8,21 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
-from app.db import Base, get_session
+from app.db import Base, EnquiryRecord, get_session
 from app.main import app
 from app.runtime import loop_factory
 
-PAYLOAD = {"name": "Alex Parent", "email": "parent@example.com", "stage": "Primary school", "message": "Can we visit?", "consent": True}
+PAYLOAD = {"name": "Alex Parent", "email": "parent@example.com", "grade": 1, "message": "Can we visit?", "consent": True}
 
 
 def test_catalog_without_database():
     with TestClient(app, backend_options={"loop_factory": loop_factory}) as client:
         response = client.get("/api/stages")
         assert response.status_code == 200
-        assert len(response.json()) == 3
+        assert [stage["name"] for stage in response.json()] == ["Primary school", "Secondary school"]
 
 
-@pytest.mark.parametrize("patch", [{"email": "bad"}, {"consent": False}, {"stage": "invalid"}, {"name": " "}, {"message": "a" * 3001}])
+@pytest.mark.parametrize("patch", [{"email": "bad"}, {"consent": False}, {"stage": "invalid"}, {"stage": "Early years"}, {"name": " "}, {"message": "a" * 3001}, {"grade": 0}, {"grade": 12}, {"grade": 1.5}, {"grade": None}, {"grade": "5"}])
 def test_invalid_enquiries_rejected_before_database(patch):
     with TestClient(app, backend_options={"loop_factory": loop_factory}) as client:
         response = client.post("/api/enquiries", json={**PAYLOAD, **patch}, headers={"Idempotency-Key": str(uuid4())})
@@ -54,6 +54,7 @@ def database_client():
     app.dependency_overrides[get_session] = override
     try:
         with TestClient(app, backend_options={"loop_factory": loop_factory}) as client:
+            client.enquiry_sessions = sessions
             yield client
     finally:
         app.dependency_overrides.clear()
@@ -70,6 +71,13 @@ def test_save_retry_conflict_and_private_receipt(database_client):
     first = database_client.post("/api/enquiries", json=PAYLOAD, headers=headers)
     assert first.status_code == 202
     assert first.json()["status"] == "received"
+
+    async def saved_grade():
+        async with database_client.enquiry_sessions() as session:
+            record = await session.get(EnquiryRecord, first.json()["id"])
+            return record.grade
+
+    assert asyncio.run(saved_grade(), loop_factory=loop_factory) == 1
     second = database_client.post("/api/enquiries", json=PAYLOAD, headers=headers)
     assert second.json()["id"] == first.json()["id"]
     conflict = database_client.post("/api/enquiries", json={**PAYLOAD, "name": "Someone Else"}, headers=headers)
@@ -78,3 +86,4 @@ def test_save_retry_conflict_and_private_receipt(database_client):
     assert receipt.status_code == 200
     assert set(receipt.json()) == {"id", "status", "created_at"}
     assert database_client.get("/api/enquiries/" + str(uuid4())).status_code == 404
+    assert database_client.post("/api/enquiries", json={**PAYLOAD, "grade": 11}, headers={"Idempotency-Key": str(uuid4())}).status_code == 202

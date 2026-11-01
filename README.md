@@ -14,6 +14,10 @@ Open http://127.0.0.1:3000. Keep the terminal running; Ctrl+C stops the processe
 
 The project-local setup downloads PostgreSQL and Temporal into ignored `.tools/` and keeps database files and service logs in ignored `.local/`. It does not install Windows services, modify the system PATH, or publish anything. The launcher refuses to replace existing website, API, or Temporal processes on the same ports.
 
+### Windows terminal startup and shutdown
+
+You can run `python scripts/dev.py` directly from the project folder to avoid npm's Windows batch wrapper. Wait for the startup messages and the website URL, then keep that terminal open while using the site. Press Ctrl+C only to stop. If npm asks `Terminate batch job (Y/N)?` after stopping, enter `Y`. The launcher checks PostgreSQL's status before shutdown, so a database that has already stopped does not trigger a duplicate stop attempt. Startup failures identify the service and its local log file.
+
 ### Setup on a fresh Windows checkout
 
 Requires Node.js 18.16+ (Node 22 recommended) and Python 3.13.
@@ -36,6 +40,8 @@ With Docker Desktop installed and running, run `docker compose up --build`, then
 
 ## Admissions data flow
 
+The frontend supports English, Uzbek (Latin script), and Russian. The header language selector stores only the chosen language in `localStorage`; form drafts remain in React memory. Page metadata, navigation, learning content, FAQs, image descriptions, form labels, validation, status messages, and downloaded enquiry drafts follow that choice. Canonical English learning-stage values are preserved in API requests, so language changes require no database migration. Translations live in `frontend/src/translations.ts`.
+
 1. A two-step React form validates with Zod and shows a review before submission. No draft details are stored in browser storage.
 2. FastAPI validates again with Pydantic. Zod is a TypeScript library, so it runs on the frontend rather than inside Python.
 3. PostgreSQL stores the enquiry and its pending-dispatch flag together. A stable idempotency key prevents duplicate rows on retries; changed data with a reused key returns HTTP 409.
@@ -44,6 +50,8 @@ With Docker Desktop installed and running, run `docker compose up --build`, then
 6. TanStack Query polls the receipt status. Receipt responses do not contain names, emails, or messages. There is no public enquiry list.
 
 This local application sends no emails or school notifications. `ready_for_review` means prepared by the local workflow, not read by staff. Tables are created non-destructively by `app.init_db` for this initial version; future schema changes need migrations. An authenticated staff interface is not included.
+
+New admissions enquiries require a grade from 1 to 11. The selected grade is included in the review and downloaded draft and is validated by Zod, Pydantic, and a PostgreSQL check constraint. The initializer performs a repeatable additive upgrade for the grade column; existing enquiries are preserved with no grade recorded. Restart `python scripts/dev.py` after updating the backend so the initializer and new API contract take effect.
 
 ## Backend commands (manual startup)
 
