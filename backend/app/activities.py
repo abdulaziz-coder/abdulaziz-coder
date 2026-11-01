@@ -8,7 +8,8 @@ async def prepare_enquiry(enquiry_id: str) -> str:
     async with Session() as db:
         record = await db.get(EnquiryRecord, enquiry_id)
         if record is None:
-            raise ValueError("Enquiry does not exist")
+            # An admin may delete an enquiry before its queued activity runs.
+            return "deleted"
         # Idempotent under Temporal retries. No external emails or notifications are sent.
         record.status = "ready_for_review"
         await db.commit()

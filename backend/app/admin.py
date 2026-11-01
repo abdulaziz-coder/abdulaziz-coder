@@ -6,7 +6,7 @@ from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
 from pydantic import BaseModel, Field
-from sqlalchemy import func, or_, select, update
+from sqlalchemy import delete, func, or_, select, update
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -129,6 +129,18 @@ async def mark_received(enquiry_id: UUID, request: Request, admin: Admin, db: Db
         await db.commit()
         await db.refresh(record)
         return enquiry_detail(record)
+    except SQLAlchemyError:
+        await db.rollback()
+        raise HTTPException(503, "Local admissions database is unavailable.")
+
+
+@router.delete("/enquiries/{enquiry_id}", status_code=204)
+async def delete_enquiry(enquiry_id: UUID, request: Request, admin: Admin, db: Db):
+    check_origin(request)
+    try:
+        # Repeated requests are safe; a deleted reference is never reused.
+        await db.execute(delete(EnquiryRecord).where(EnquiryRecord.id == str(enquiry_id)))
+        await db.commit()
     except SQLAlchemyError:
         await db.rollback()
         raise HTTPException(503, "Local admissions database is unavailable.")

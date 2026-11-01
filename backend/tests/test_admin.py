@@ -1,6 +1,7 @@
 import asyncio
 import time
 from uuid import uuid4
+from unittest.mock import AsyncMock
 
 from fastapi.testclient import TestClient
 import pytest
@@ -10,6 +11,7 @@ from app.config import settings
 from app.main import app
 from app.runtime import loop_factory
 from app.db import EnquiryRecord
+from app import activities
 from test_api import database_client, PAYLOAD
 
 PASSWORD = "Test-only-admin-password"
@@ -124,3 +126,35 @@ def test_received_action_is_protected_idempotent_and_survives_workflow_updates(d
     assert data["items"][0]["received_at"] == timestamp
     assert client.get("/api/admin/enquiries", params={"status": "ready_for_review"}).json()["total"] == 0
     assert client.patch(f"/api/admin/enquiries/{uuid4()}/received", headers=ORIGIN).status_code == 404
+
+
+@pytest.mark.parametrize("received", [False, True])
+def test_admin_can_delete_any_enquiry_and_repeat_safely(database_client, received):
+    client = database_client
+    receipt = client.post("/api/enquiries", json=PAYLOAD, headers={"Idempotency-Key": str(uuid4())}).json()
+    url = f"/api/admin/enquiries/{receipt['id']}"
+    assert client.delete(url, headers=ORIGIN).status_code == 401
+    login(client)
+    if received:
+        assert client.patch(url + "/received", headers=ORIGIN).status_code == 200
+    assert client.delete(url, headers={"Origin": "https://unrelated.example"}).status_code == 403
+    assert client.get("/api/admin/enquiries").json()["total"] == 1
+    assert client.delete(url, headers=ORIGIN).status_code == 204
+    assert client.delete(url, headers=ORIGIN).status_code == 204
+    data = client.get("/api/admin/enquiries").json()
+    assert data["total"] == 0 and data["items"] == []
+    assert data["stats"] == {"total": 0, "received": 0, "ready_for_review": 0}
+    assert client.get(f"/api/enquiries/{receipt['id']}").status_code == 404
+    assert client.patch(url + "/received", headers=ORIGIN).status_code == 404
+    next_receipt = client.post("/api/enquiries", json=PAYLOAD, headers={"Idempotency-Key": str(uuid4())}).json()
+    assert next_receipt["reference"] != receipt["reference"]
+
+
+def test_background_activity_finishes_when_enquiry_was_deleted(monkeypatch):
+    database = AsyncMock()
+    database.get.return_value = None
+    context = AsyncMock()
+    context.__aenter__.return_value = database
+    monkeypatch.setattr(activities, "Session", lambda: context)
+    assert asyncio.run(activities.prepare_enquiry(str(uuid4())), loop_factory=loop_factory) == "deleted"
+    database.commit.assert_not_awaited()

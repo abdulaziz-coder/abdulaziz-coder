@@ -32,3 +32,6 @@ export async function adminEnquiries(filters: { q: string; grade: string; status
 export async function markEnquiryReceived(id: string) {
   return detail.parse(await request(`/enquiries/${id}/received`, { method: 'PATCH' }));
 }
+export async function deleteEnquiry(id: string) {
+  await request(`/enquiries/${id}`, { method: 'DELETE' });
+}

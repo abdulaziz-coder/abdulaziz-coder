@@ -1,4 +1,7 @@
 export const adminUz = {
+  'Delete enquiry': 'Murojaatni o‘chirish', 'Delete this enquiry?': 'Ushbu murojaat o‘chirilsinmi?',
+  'This permanently removes the enquiry and its contact details from the local database. This cannot be undone.': 'Murojaat va uning aloqa ma’lumotlari mahalliy bazadan butunlay o‘chiriladi. Buni ortga qaytarib bo‘lmaydi.',
+  'Delete permanently': 'Butunlay o‘chirish', 'Deleting…': 'O‘chirilmoqda…', 'Cancel': 'Bekor qilish', 'Enquiry deleted.': 'Murojaat o‘chirildi.',
   'New': 'Yangi', 'Mark as received': 'Qabul qilindi deb belgilash', 'Marking…': 'Belgilanmoqda…', 'Received on': 'Qabul qilingan vaqt',
   'Enquiry marked as received.': 'Murojaat qabul qilindi deb belgilandi.',
   'Admin panel': 'Admin panel', 'Admissions admin': 'Qabul boshqaruvi', 'Local access only': 'Faqat mahalliy foydalanish',
@@ -22,6 +25,9 @@ export const adminUz = {
   'Local database · no emails are sent': 'Mahalliy baza · elektron xatlar yuborilmaydi',
 };
 export const adminRu: Record<keyof typeof adminUz, string> = {
+  'Delete enquiry': 'Удалить обращение', 'Delete this enquiry?': 'Удалить это обращение?',
+  'This permanently removes the enquiry and its contact details from the local database. This cannot be undone.': 'Обращение и его контактные данные будут навсегда удалены из локальной базы. Это действие нельзя отменить.',
+  'Delete permanently': 'Удалить навсегда', 'Deleting…': 'Удаление…', 'Cancel': 'Отмена', 'Enquiry deleted.': 'Обращение удалено.',
   'New': 'Новое', 'Mark as received': 'Отметить как полученное', 'Marking…': 'Сохранение…', 'Received on': 'Дата подтверждения получения',
   'Enquiry marked as received.': 'Обращение отмечено как полученное.',
   'Admin panel': 'Панель администратора', 'Admissions admin': 'Управление поступлением', 'Local access only': 'Только локальный доступ',
