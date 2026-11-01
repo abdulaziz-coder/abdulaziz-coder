@@ -1,0 +1,33 @@
+.school-photo{overflow:hidden;background:#d8e9f8}
+.school-photo img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease,transform .7s ease}
+.school-photo.is-loaded img{opacity:1}
+.school-photo img[src$="bm-classroom-community.png"]{object-position:50% 22%}
+.school-photo img[src$="bm-interactive-lesson.png"]{object-position:50% 48%}
+.hero-art{transform:none;isolation:isolate}
+.hero-photo{height:100%;width:100%;border-radius:34px}
+.hero-photo img{object-position:40% 50%}
+.hero-art:hover .hero-photo img{transform:scale(1.035)}
+.hero-art .art-label{z-index:3;background:#fffffff2}
+.stage{min-height:365px;padding-right:49%}
+.stage-photo{position:absolute;top:22px;right:22px;bottom:22px;width:41%;border-radius:18px}
+.stage:hover .stage-photo img{transform:scale(1.04)}
+.life-with-photo{isolation:isolate;position:relative;min-height:490px;display:flex;flex-direction:column;justify-content:flex-end}
+.life-photo-layer{position:absolute;inset:0;z-index:-3}
+.life-photo{height:100%;width:100%}
+.life-photo img{object-position:50% 50%}
+.life-photo-shade{position:absolute;inset:0;background:linear-gradient(180deg,#0b243b15 10%,#0b243b55 40%,#0b243bf0 100%);z-index:-1}
+.life-with-photo .eyebrow{position:absolute;top:35px;left:35px;right:25px;color:white;text-shadow:0 1px 7px #0009}
+.life-with-photo .life-word{font-size:65px;margin:0 0 45px;line-height:1.1;text-shadow:0 2px 15px #0b243b50}
+.life-with-photo .life-word em{color:#cae8ff}
+.life-with-photo .life-star{display:none}
+.life-with-photo .life-caption{bottom:30px;left:43px;color:#d1e8f8}
+.photo-disclosure{display:block;font-size:9px;margin-top:5px}
+@media(max-width:950px){.stage{padding-right:48%}.stage-photo{width:40%}.life-with-photo .life-word{font-size:56px}}
+@media(max-width:700px){
+  .hero-photo{border-radius:34px}.hero-photo img{object-position:40% 50%}
+  .stage{display:flex;flex-direction:column;padding:22px;min-height:0}
+  .stage-photo{position:relative;inset:auto;width:100%;height:210px;margin:20px 0 0;order:0;border-radius:14px}
+  .stage h3{margin-top:24px}.stage-enquire{align-self:flex-start}
+  .life-with-photo{min-height:410px}.life-with-photo .eyebrow{left:28px;top:28px}.life-with-photo .life-caption{left:30px}
+}
+@media(prefers-reduced-motion:reduce){.school-photo img{transition:none}.hero-art:hover .hero-photo img,.stage:hover .stage-photo img{transform:none}}

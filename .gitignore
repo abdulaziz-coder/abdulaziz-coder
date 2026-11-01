@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+build/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.tools/
+.local/

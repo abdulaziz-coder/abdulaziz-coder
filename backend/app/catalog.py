@@ -1,0 +1,5 @@
+STAGES = [
+    {"id": "early", "name": "Early years", "eyebrow": "THE FIRST DISCOVERIES", "title": "Little questions. Big discoveries.", "description": "Space to play, wonder, and find a voice. Our proposed early years journey begins with the joy of discovering something new.", "highlights": ["Play & imagination", "Finding a voice", "Learning together"]},
+    {"id": "primary", "name": "Primary school", "eyebrow": "GROWING CONFIDENCE", "title": "Connect ideas. Find your spark.", "description": "Connecting ideas, building friendships, and discovering the confidence to try. A vision for curious learners ready to explore.", "highlights": ["Creative thinking", "Growing independence", "Meaningful connections"]},
+    {"id": "secondary", "name": "Secondary school", "eyebrow": "WIDER HORIZONS", "title": "Your ideas can go further.", "description": "Thinking independently, finding purpose, and imagining what comes next. A proposed journey toward a wider world.", "highlights": ["Independent thinking", "Finding purpose", "Wider perspectives"]},
+]

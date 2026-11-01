@@ -1,0 +1,38 @@
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;background:#58a8dc;transform-origin:0 50%;z-index:50}
+.brand .brand-name{font-size:16px;letter-spacing:0;line-height:1.4}
+.brand .brand-name b{font-size:9px;letter-spacing:.14em;margin-top:3px}
+@media(min-width:701px) and (max-width:1050px){.header-cta{display:none!important}.header{gap:24px}}
+@media(max-width:700px){.brand .brand-name{font-size:14px}.brand .brand-name b{font-size:8px;letter-spacing:.1em}.header{gap:12px}}
+.field-error{display:block;font-size:12px;color:#ffe1b1;line-height:1.7;margin:8px 0 16px}
+.consent-label{display:flex;gap:12px;align-items:flex-start;line-height:1.8}.consent-label input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:#9ed5f5}
+.review-grid{margin-bottom:24px}.review-grid>div{padding:12px 0;border-bottom:1px solid #ffffff25}.review-grid dt{font-size:10px;color:#bbd2e5;margin-bottom:6px}.review-grid dd{font-size:14px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+button:disabled{opacity:.6;cursor:wait}.stage h3{font-size:35px}.stage-tabs button[aria-selected=true]{background:#174265;color:white}.stage-tabs button{transition:background .2s}.life-word{position:relative;z-index:1}.life-star{pointer-events:none}.admissions .text-link{background:none;border:0;padding:8px 0;cursor:pointer}.stage p{margin:15px 0}summary:focus-visible{outline:3px solid #277eaf;outline-offset:5px}
+@media(max-width:700px){.stage h3{font-size:30px}.stage{min-height:510px}.values-strip span{justify-content:center}.values-strip span b{display:none}.hero-art{overflow:visible}.life-word{font-size:65px}.admissions h2{font-size:40px}}
+
+/* Keep interaction timings consistent across pointer, keyboard, and touch. */
+.button{transition:background-color .25s,box-shadow .25s,transform .25s}
+.button:hover{box-shadow:0 9px 24px #17426524}.button:active{transform:translateY(0) scale(.98)}
+.brand-logo{transition:transform .3s,box-shadow .3s}.brand:hover .brand-logo{transform:rotate(-5deg);box-shadow:0 5px 16px #17426520}
+.text-link{transition:color .25s,gap .25s}.text-link:hover{gap:22px}
+.art-label{transition:transform .3s,box-shadow .3s}.art-label:hover{transform:translateY(-5px);box-shadow:0 20px 45px #17426524}
+.header .nav-links{display:flex;align-items:center;gap:30px}
+.stage-tabs button{position:relative;isolation:isolate;transition:color .25s,background-color .25s}
+.stage-tabs button[aria-selected=true]{background:transparent;box-shadow:none}
+.tab-indicator{position:absolute;inset:0;background:#174265;border-radius:11px;z-index:-1;box-shadow:0 4px 12px #17426520}
+.admissions input,.admissions textarea,.admissions select{transition:border-color .25s,background-color .25s,box-shadow .25s}
+.admissions input:focus,.admissions textarea:focus,.admissions select:focus{border-color:#9ed5f5;box-shadow:0 0 0 3px #9ed5f51a}
+.faq-item{border-bottom:1px solid var(--line)}.faq-item>button{display:flex;align-items:center;justify-content:space-between;gap:25px;width:100%;padding:25px 0;border:0;background:none;color:var(--blue);font-size:15px;text-align:left;cursor:pointer;transition:color .2s}
+.faq-item>button:hover{color:#3a87b8}.faq-item>button>span{font-size:24px;line-height:1;flex-shrink:0}.accordion-body{overflow:hidden}.accordion-body p{padding-bottom:20px;margin:0;font-size:13px;line-height:1.9;color:var(--muted)}
+@media(max-width:950px){.header .nav-links{gap:18px}}
+@media(max-width:700px){
+  .header nav,.header nav.open{position:absolute;top:100%;left:0;right:0;display:grid;grid-template-rows:0fr;width:100%;padding:0 6%;margin:0;background:#f5f8fc;visibility:hidden;pointer-events:none;box-shadow:0 12px 18px #17426500;transition:grid-template-rows .3s ease,visibility .3s,box-shadow .3s}
+  .header nav.open{grid-template-rows:1fr;visibility:visible;pointer-events:auto;box-shadow:0 12px 18px #17426510}
+  .header .nav-links{min-height:0;overflow:hidden;display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .header .nav-links a{padding:15px 0}.header .nav-links a:first-child{margin-top:8px}.header .nav-links a:last-child{margin-bottom:16px}
+  .faq-item>button{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .button,.brand-logo,.text-link,.art-label,.stage-tabs button,.admissions input,.admissions textarea,.admissions select,.header nav,.header nav.open,.faq-item>button{transition:none}
+  .brand:hover .brand-logo,.art-label:hover,.button:hover,.button:active{transform:none}
+}

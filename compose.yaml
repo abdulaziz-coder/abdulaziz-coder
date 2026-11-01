@@ -1,0 +1,40 @@
+name: bm-school-local
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: bm
+      POSTGRES_PASSWORD: bm_local
+      POSTGRES_DB: bm_school
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: ["school_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bm -d bm_school"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  temporal:
+    image: temporalio/temporal:latest
+    command: ["server", "start-dev", "--ip", "0.0.0.0", "--db-filename", "/data/temporal.db", "--ui-ip", "0.0.0.0"]
+    ports: ["127.0.0.1:7233:7233", "127.0.0.1:8233:8233"]
+    volumes: ["temporal_data:/data"]
+  api:
+    build: ./backend
+    environment: &backend_environment
+      DATABASE_URL: postgresql+psycopg://bm:bm_local@postgres:5432/bm_school
+      TEMPORAL_ADDRESS: temporal:7233
+    command: ["sh", "-c", "python -m app.init_db && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      postgres: { condition: service_healthy }
+  worker:
+    build: ./backend
+    environment: *backend_environment
+    command: ["python", "-m", "app.worker"]
+    restart: on-failure
+    depends_on:
+      api: { condition: service_started }
+      temporal: { condition: service_started }
+volumes:
+  school_data:
+  temporal_data:
