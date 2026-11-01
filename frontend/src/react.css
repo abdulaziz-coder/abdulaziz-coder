@@ -36,3 +36,4 @@ button:disabled{opacity:.6;cursor:wait}.stage h3{font-size:35px}.stage-tabs butt
   .button,.brand-logo,.text-link,.art-label,.stage-tabs button,.admissions input,.admissions textarea,.admissions select,.header nav,.header nav.open,.faq-item>button{transition:none}
   .brand:hover .brand-logo,.art-label:hover,.button:hover,.button:active{transform:none}
 }
+.phone-hint{display:block;margin-top:7px;font-size:10px;line-height:1.6;color:#bbd2e5}

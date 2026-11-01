@@ -13,7 +13,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocale] = useState<Locale>(readSavedLocale);
   useEffect(() => {
     document.documentElement.lang = locale;
-    document.title = `${translate(locale, 'Boborahim Mashrab International School')} — ${translate(locale, 'A world of possibility.')}`;
+    document.title = window.location.pathname.startsWith('/admin') ? `${translate(locale, 'Admissions admin')} — ${translate(locale, 'Boborahim Mashrab')}` : `${translate(locale, 'Boborahim Mashrab International School')} — ${translate(locale, 'A world of possibility.')}`;
     document.querySelector('meta[name="description"]')?.setAttribute('content', `${translate(locale, 'Boborahim Mashrab International School')}. ${translate(locale, 'A world of possibility.')}`);
     try { localStorage.setItem(STORAGE_KEY, locale); } catch { /* Private browsing may disable storage. */ }
   }, [locale]);

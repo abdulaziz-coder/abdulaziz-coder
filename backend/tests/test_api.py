@@ -12,7 +12,7 @@ from app.db import Base, EnquiryRecord, get_session
 from app.main import app
 from app.runtime import loop_factory
 
-PAYLOAD = {"name": "Alex Parent", "email": "parent@example.com", "grade": 1, "message": "Can we visit?", "consent": True}
+PAYLOAD = {"name": "Alex Parent", "email": "parent@example.com", "phone": "+998 90 123 45 67", "grade": 1, "message": "Can we visit?", "consent": True}
 
 
 def test_catalog_without_database():
@@ -26,6 +26,13 @@ def test_catalog_without_database():
 def test_invalid_enquiries_rejected_before_database(patch):
     with TestClient(app, backend_options={"loop_factory": loop_factory}) as client:
         response = client.post("/api/enquiries", json={**PAYLOAD, **patch}, headers={"Idempotency-Key": str(uuid4())})
+        assert response.status_code == 422
+
+
+@pytest.mark.parametrize("phone", ["", "12345", "+1234567890123456", "call me", "++998901234567", None])
+def test_invalid_phone_rejected(phone):
+    with TestClient(app, backend_options={"loop_factory": loop_factory}) as client:
+        response = client.post("/api/enquiries", json={**PAYLOAD, "phone": phone}, headers={"Idempotency-Key": str(uuid4())})
         assert response.status_code == 422
 
 
@@ -71,19 +78,21 @@ def test_save_retry_conflict_and_private_receipt(database_client):
     first = database_client.post("/api/enquiries", json=PAYLOAD, headers=headers)
     assert first.status_code == 202
     assert first.json()["status"] == "received"
+    assert first.json()["reference"].startswith("BM-")
 
-    async def saved_grade():
+    async def saved_contact():
         async with database_client.enquiry_sessions() as session:
             record = await session.get(EnquiryRecord, first.json()["id"])
-            return record.grade
+            return record.grade, record.phone
 
-    assert asyncio.run(saved_grade(), loop_factory=loop_factory) == 1
+    assert asyncio.run(saved_contact(), loop_factory=loop_factory) == (1, "+998901234567")
     second = database_client.post("/api/enquiries", json=PAYLOAD, headers=headers)
     assert second.json()["id"] == first.json()["id"]
+    assert second.json()["reference"] == first.json()["reference"]
     conflict = database_client.post("/api/enquiries", json={**PAYLOAD, "name": "Someone Else"}, headers=headers)
     assert conflict.status_code == 409
     receipt = database_client.get("/api/enquiries/" + first.json()["id"])
     assert receipt.status_code == 200
-    assert set(receipt.json()) == {"id", "status", "created_at"}
+    assert set(receipt.json()) == {"id", "reference", "status", "created_at"}
     assert database_client.get("/api/enquiries/" + str(uuid4())).status_code == 404
     assert database_client.post("/api/enquiries", json={**PAYLOAD, "grade": 11}, headers={"Idempotency-Key": str(uuid4())}).status_code == 202

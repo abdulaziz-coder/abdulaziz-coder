@@ -66,13 +66,13 @@ def main():
     wait_port(7233, temporal, "temporal")
     print("Preparing the admissions database...", flush=True)
     subprocess.run([str(PYTHON), "-m", "app.init_db"], cwd=ROOT / "backend", check=True)
-    api = launch("api", [str(PYTHON), "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000", "--loop", "app.runtime:loop_factory"], ROOT / "backend")
+    api = launch("api", [str(PYTHON), "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000", "--loop", "app.runtime:loop_factory", "--reload", "--reload-dir", str(ROOT / "backend/app")], ROOT / "backend")
     wait_port(8000, api, "api")
     launch("worker", [str(PYTHON), "-m", "app.worker"], ROOT / "backend")
     # Execute Vite directly so shutdown owns the actual process rather than an npm wrapper.
     frontend = launch("frontend", ["node", str(ROOT / "node_modules/vite/bin/vite.js"), "--host", "127.0.0.1", "--port", "3000"])
     wait_port(3000, frontend, "frontend")
-    print("\nBoborahim Mashrab International School: http://127.0.0.1:3000\nAPI docs: http://127.0.0.1:8000/docs\nTemporal: http://127.0.0.1:8233\nKeep this terminal open. Press Ctrl+C only when you want to stop. Logs: .local/", flush=True)
+    print("\nBoborahim Mashrab International School: http://127.0.0.1:3000\nAdmin panel: http://127.0.0.1:3000/admin\nAPI docs: http://127.0.0.1:8000/docs\nTemporal: http://127.0.0.1:8233\nKeep this terminal open. Press Ctrl+C only when you want to stop. Logs: .local/", flush=True)
     while True:
         for child in children:
             if child.poll() is not None:

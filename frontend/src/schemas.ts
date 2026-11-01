@@ -4,13 +4,16 @@ export const stageSchema = z.enum(['Primary school', 'Secondary school', 'Not su
 export const enquirySchema = z.object({
   name: z.string().trim().min(2, 'Please enter at least two characters.').max(120),
   email: z.email('Please enter a valid email address.').max(200),
+  phone: z.string().trim().min(1).max(32).regex(/^\+?[0-9 ().-]+$/)
+    .refine(value => { const digits = value.replace(/\D/g, ''); return digits.length >= 7 && digits.length <= 15; })
+    .transform(value => value.replace(/[ ().-]/g, '')),
   grade: z.number().int().min(1).max(11),
   message: z.string().trim().max(3000, 'Please keep your message under 3,000 characters.'),
   consent: z.literal(true, { error: 'Please agree to save this enquiry locally.' }),
 });
 export type Enquiry = z.infer<typeof enquirySchema>;
 export const receiptSchema = z.object({
-  id: z.uuid(), status: z.enum(['received', 'ready_for_review']), created_at: z.string(),
+  id: z.uuid(), reference: z.string().regex(/^BM-\d{6,}$/), status: z.enum(['received', 'ready_for_review']), created_at: z.string(),
 });
 export const catalogSchema = z.array(z.object({
   id: z.string(), name: stageSchema, eyebrow: z.string(), title: z.string(), description: z.string(),

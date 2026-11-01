@@ -1,3 +1,4 @@
+import { adminUz, adminRu } from './admin-translations';
 export type Locale = 'en' | 'uz' | 'ru';
 export const languages: { code: Locale; label: string; short: string }[] = [
   { code: 'uz', label: 'O‘zbekcha', short: 'UZ' },
@@ -6,6 +7,10 @@ export const languages: { code: Locale; label: string; short: string }[] = [
 ];
 
 export const uz = {
+  'Phone number': 'Telefon raqami',
+  'Please enter a valid phone number with 7 to 15 digits.': '7–15 ta raqamdan iborat to‘g‘ri telefon raqamini kiriting.',
+  'Include your country code, for example +998.': 'Mamlakat kodini kiriting, masalan +998.',
+  ...adminUz,
   'Grade': 'Sinf', 'Choose a grade': 'Sinfni tanlang', 'Choose a grade from 1 to 11.': '1 dan 11 gacha sinfni tanlang.',
   'For students in Grades 1–11': '1–11-sinf o‘quvchilari uchun',
   'Our school accepts students in Grades 1–11 only.': 'Maktabimiz faqat 1–11-sinf o‘quvchilarini qabul qiladi.',
@@ -87,6 +92,10 @@ export const uz = {
 } as const;
 
 export const ru: Record<keyof typeof uz, string> = {
+  'Phone number': 'Номер телефона',
+  'Please enter a valid phone number with 7 to 15 digits.': 'Введите корректный номер телефона из 7–15 цифр.',
+  'Include your country code, for example +998.': 'Укажите код страны, например +998.',
+  ...adminRu,
   'Grade': 'Класс', 'Choose a grade': 'Выберите класс', 'Choose a grade from 1 to 11.': 'Выберите класс от 1 до 11.',
   'For students in Grades 1–11': 'Для учеников 1–11 классов',
   'Our school accepts students in Grades 1–11 only.': 'Наша школа принимает учеников только в 1–11 классы.',

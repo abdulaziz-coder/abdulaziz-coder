@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getStages } from './api';
 import { previewStages } from './schemas';
 import Admissions from './Admissions';
+import Brand from './Brand';
 import Accordion from './Accordion';
 import Photo, { photos } from './Photo';
 import { useLanguage, LanguageSwitcher } from './i18n';
@@ -13,7 +14,6 @@ function Reveal({ children, className = '' }: { children: ReactNode; className?:
   return <motion.div className={className} initial={reduced ? false : 'hidden'} whileInView="visible" variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: .65, ease: [.22, 1, .36, 1], staggerChildren: .09 } } }} viewport={{ once: true, amount: .1 }}>{children}</motion.div>;
 }
 const heroItem = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: .55 } } };
-function Brand() { const { t } = useLanguage(); return <a className="brand" href="#" aria-label={`${t('Boborahim Mashrab International School')} — ${t('Home')}`}><img className="brand-logo" src="/bm-logo.png" alt="" width="58" height="58" /><span className="brand-name">{t("Boborahim Mashrab")}<b>{t("INTERNATIONAL SCHOOL")}</b></span></a>; }
 const experiences = [
   { name: 'Create & express', word: 'create.', text: 'Art, ideas, and imagination. Our vision gives students room to experiment, share their perspective, and discover the satisfaction of making something their own.' },
   { name: 'Move & discover', word: 'explore.', text: 'Energy, teamwork, and exploration. We envision opportunities to move, try new challenges, and build confidence alongside others.' },
@@ -53,6 +53,6 @@ export default function App() {
         ['Can I arrange a school visit?', 'Visit arrangements and the campus address have not yet been provided. Include your interest in a visit in your enquiry.'],
       ].map(([question, answer]) => <Accordion key={question} question={t(question)} answer={t(answer)} />)}</div></section>
       <Admissions />
-    </main><footer><Brand /><p>{t("A world of possibility.")}<br /><small>© {new Date().getFullYear()} {" "}{t("Boborahim Mashrab International School")} · {t("Website concept")}</small></p><a className="text-link" href="#">{t("Back to top")} ↑</a></footer>
+    </main><footer><Brand /><p>{t("A world of possibility.")}<br /><small>© {new Date().getFullYear()} {" "}{t("Boborahim Mashrab International School")} · {t("Website concept")}</small></p><div className="flex flex-wrap gap-5"><a className="text-link" href="/admin">{t("Admin panel")} ↗</a><a className="text-link" href="#">{t("Back to top")} ↑</a></div></footer>
   </>;
 }

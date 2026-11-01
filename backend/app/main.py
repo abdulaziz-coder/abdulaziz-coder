@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .catalog import STAGES
 from .db import EnquiryRecord, engine, get_session
 from .schemas import EnquiryIn, Receipt
+from .admin import router as admin_router
 
 
 @asynccontextmanager
@@ -21,6 +22,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="BM International School API", version="0.2.0", lifespan=lifespan)
+app.include_router(admin_router)
 Db = Annotated[AsyncSession, Depends(get_session)]
 
 
