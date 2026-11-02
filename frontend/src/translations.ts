@@ -7,6 +7,21 @@ export const languages: { code: Locale; label: string; short: string }[] = [
 ];
 
 export const uz = {
+  "THE CAMBRIDGE PATHWAY": "CAMBRIDGE TA’LIM YO‘LI",
+  "A world of learning.": "Bilimlar olami.",
+  "One step at a time.": "Bosqichma-bosqich.",
+  "Your child’s education develops step by step through the Cambridge pathway.": "Cambridge tizimida farzandingizning ta’lim yo‘li bosqichma-bosqich rivojlanadi:",
+  "Ages": "Yosh:",
+  "A foundation for discovery": "Kashfiyotlar uchun poydevor",
+  "Growing knowledge and independence": "Bilim va mustaqillik sari",
+  "Build strong foundations in knowledge, curiosity, and confidence, ready for the next stage of learning.": "Keyingi ta’lim bosqichi uchun mustahkam bilim, qiziquvchanlik va o‘ziga ishonch poydevori yaratiladi.",
+  "Deepen understanding and develop independent thinking as students prepare for upper secondary learning.": "O‘quvchilar bilimlarini chuqurlashtirib, mustaqil fikrlashni rivojlantiradi va yuqori ta’lim bosqichiga tayyorlanadi.",
+  "Develop subject knowledge and skills through the Cambridge IGCSE pathway, preparing for further study.": "Cambridge IGCSE dasturi orqali fanlar bo‘yicha bilim va ko‘nikmalar rivojlantirilib, keyingi ta’limga tayyorgarlik ko‘riladi.",
+  "Explore subjects in greater depth through Cambridge AS & A Level, preparing for university and further education.": "Cambridge AS & A Level dasturida fanlar chuqur o‘rganilib, universitet va keyingi ta’limga tayyorgarlik ko‘riladi.",
+  "Each stage develops knowledge and prepares students for the next step in education.": "Har bir bosqich bolalarning bilimini rivojlantirish va keyingi ta’limga tayyorlashga xizmat qiladi.",
+  "Which curriculum does the school follow?": "Maktab qaysi o‘quv dasturiga asoslangan?",
+  "Our school follows the Cambridge curriculum. Each stage develops knowledge and prepares students for the next step in education.": "Maktabimiz Cambridge o‘quv dasturiga asoslangan. Har bir bosqich bolalarning bilimini rivojlantirish va keyingi ta’limga tayyorlashga xizmat qiladi.",
+
   'Phone number': 'Telefon raqami',
   'Please enter a valid phone number with 7 to 15 digits.': '7–15 ta raqamdan iborat to‘g‘ri telefon raqamini kiriting.',
   'Include your country code, for example +998.': 'Mamlakat kodini kiriting, masalan +998.',
@@ -92,6 +107,21 @@ export const uz = {
 } as const;
 
 export const ru: Record<keyof typeof uz, string> = {
+  "THE CAMBRIDGE PATHWAY": "ОБРАЗОВАТЕЛЬНЫЙ ПУТЬ CAMBRIDGE",
+  "A world of learning.": "Мир знаний.",
+  "One step at a time.": "Шаг за шагом.",
+  "Your child’s education develops step by step through the Cambridge pathway.": "В системе Cambridge образовательный путь вашего ребёнка развивается поэтапно.",
+  "Ages": "Возраст:",
+  "A foundation for discovery": "Основа для открытий",
+  "Growing knowledge and independence": "Развитие знаний и самостоятельности",
+  "Build strong foundations in knowledge, curiosity, and confidence, ready for the next stage of learning.": "Формируется прочная основа знаний, любознательности и уверенности для следующей ступени обучения.",
+  "Deepen understanding and develop independent thinking as students prepare for upper secondary learning.": "Ученики углубляют знания, развивают самостоятельное мышление и готовятся к старшей ступени обучения.",
+  "Develop subject knowledge and skills through the Cambridge IGCSE pathway, preparing for further study.": "Программа Cambridge IGCSE развивает предметные знания и навыки, готовя к дальнейшему обучению.",
+  "Explore subjects in greater depth through Cambridge AS & A Level, preparing for university and further education.": "Cambridge AS & A Level позволяет глубже изучать предметы и готовиться к университету и дальнейшему образованию.",
+  "Each stage develops knowledge and prepares students for the next step in education.": "Каждая ступень развивает знания детей и готовит их к следующему этапу образования.",
+  "Which curriculum does the school follow?": "По какой программе работает школа?",
+  "Our school follows the Cambridge curriculum. Each stage develops knowledge and prepares students for the next step in education.": "Наша школа следует программе Cambridge. Каждая ступень развивает знания детей и готовит их к следующему этапу образования.",
+
   'Phone number': 'Номер телефона',
   'Please enter a valid phone number with 7 to 15 digits.': 'Введите корректный номер телефона из 7–15 цифр.',
   'Include your country code, for example +998.': 'Укажите код страны, например +998.',
