@@ -101,9 +101,9 @@ export const uz = {
   'Something went wrong. Please try again or download a draft.': 'Xatolik yuz berdi. Qayta urinib ko‘ring yoki qoralamani yuklab oling.',
   'A world of possibility.': 'Imkoniyatlar olami.', 'Website concept': 'Saytning dastlabki talqini', 'Back to top': 'Yuqoriga',
   'Boborahim Mashrab school building with blue-and-white balloons at the entrance': 'Kirish qismi ko‘k-oq sharlar bilan bezatilgan Boborahim Mashrab maktabi binosi',
-  'Teacher holding flowers surrounded by students in a bright classroom': 'Yorug‘ sinfxonada o‘quvchilar orasida gul ushlab turgan o‘qituvchi',
-  'Teacher explaining a lesson at an interactive board while students watch': 'O‘quvchilarga interaktiv doskada dars tushuntirayotgan o‘qituvchi',
-  'Students concentrating on written exercises in a sunlit classroom': 'Yorug‘ sinfxonada yozma topshiriqlarni bajarayotgan o‘quvchilar',
+  "Books, pencils, and an apple arranged on a learning desk": "O‘quv stolida kitoblar, qalamlar va olma",
+  "Students listening to their teacher in a classroom": "Sinfda o‘qituvchini tinglayotgan o‘quvchilar",
+  "A student exploring shelves of books in a library": "Kutubxonada kitob javonlarini ko‘zdan kechirayotgan o‘quvchi",
 } as const;
 
 export const ru: Record<keyof typeof uz, string> = {
@@ -185,9 +185,9 @@ export const ru: Record<keyof typeof uz, string> = {
   'Something went wrong. Please try again or download a draft.': 'Произошла ошибка. Попробуйте ещё раз или скачайте черновик.',
   'A world of possibility.': 'Мир возможностей.', 'Website concept': 'Предварительная версия сайта', 'Back to top': 'Наверх',
   'Boborahim Mashrab school building with blue-and-white balloons at the entrance': 'Здание школы «Боборахим Машраб» с бело-синими шарами у входа',
-  'Teacher holding flowers surrounded by students in a bright classroom': 'Учитель с цветами в окружении учеников в светлом классе',
-  'Teacher explaining a lesson at an interactive board while students watch': 'Учитель объясняет материал у интерактивной доски, ученики слушают',
-  'Students concentrating on written exercises in a sunlit classroom': 'Ученики выполняют письменные задания в светлом классе',
+  'Books, pencils, and an apple arranged on a learning desk': 'Книги, карандаши и яблоко на учебном столе',
+  'Students listening to their teacher in a classroom': 'Ученики слушают учителя в классе',
+  'A student exploring shelves of books in a library': 'Ученик среди книжных полок в библиотеке',
 };
 
 export function translate(locale: Locale, text: string): string {

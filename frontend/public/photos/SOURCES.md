@@ -1,19 +1,18 @@
 # Photo sources
 
-## Current school photographs
+## Current photographs
 
-The user supplied these images on 2026-11-01 for the school website:
+The main hero retains the user-supplied `bm-school-campus.png` school building photograph.
 
-- `bm-school-campus.png`: school building, used in the hero.
-- `bm-classroom-community.png`: classroom community, used in the first learning stage and school-life connection section.
-- `bm-interactive-lesson.png`: interactive lesson, used in the primary stage and school-life exploration section.
-- `bm-students-writing.png`: students writing, used in the secondary stage and school-life creativity section.
+The classroom and student portraits were replaced with the locally stored stock photographs:
 
-All photographs displayed by the React website now come from the user. The stock files below are retained as unused source assets.
+- `classroom-hero.jpg`: classroom learning, used in the Cambridge pathway and school life.
+- `learning-materials.jpg`: books and learning materials, used in school life.
+- `library.jpg`: student in a library, used in the Cambridge pathway and school life.
 
-## Previously used stock photographs
+These stock photographs illustrate learning and do not depict the school's actual students or facilities. The earlier user-supplied classroom photographs are retained as unused assets.
 
-The hero image `bm-school-campus.png` was supplied by the user on 2026-11-01 for use as the school's main photograph. The stock photographs listed below illustrate the website concept and do not depict BM International School's campus or students.
+## Stock photograph sources
 
 Downloaded from Unsplash's image CDN, under the [Unsplash License](https://unsplash.com/license), on 2026-11-01. Source image identifiers are retained below; no photographer names have been inferred.
 

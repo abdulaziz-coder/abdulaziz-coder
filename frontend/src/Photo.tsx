@@ -3,9 +3,9 @@ import { useLanguage } from './i18n';
 
 export const photos = {
   campus: { src: '/photos/bm-school-campus.png', alt: 'Boborahim Mashrab school building with blue-and-white balloons at the entrance' },
-  community: { src: '/photos/bm-classroom-community.png', alt: 'Teacher holding flowers surrounded by students in a bright classroom' },
-  lesson: { src: '/photos/bm-interactive-lesson.png', alt: 'Teacher explaining a lesson at an interactive board while students watch' },
-  writing: { src: '/photos/bm-students-writing.png', alt: 'Students concentrating on written exercises in a sunlit classroom' },
+  community: { src: '/photos/learning-materials.jpg', alt: 'Books, pencils, and an apple arranged on a learning desk' },
+  lesson: { src: '/photos/classroom-hero.jpg', alt: 'Students listening to their teacher in a classroom' },
+  writing: { src: '/photos/library.jpg', alt: 'A student exploring shelves of books in a library' },
 };
 
 export default function Photo({ photo, className = '', priority = false }: { photo: { src: string; alt: string }; className?: string; priority?: boolean }) {
