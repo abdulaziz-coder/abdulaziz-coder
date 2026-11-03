@@ -24,3 +24,22 @@ Downloaded from Unsplash's image CDN, under the [Unsplash License](https://unspl
 | library.jpg | https://images.unsplash.com/photo-1427504494785-3a9ca7044f45 |
 
 Images are locally stored JPEGs requested at 1,100–1,400 pixels wide, with compressed quality. The React hero loads eagerly; below-fold photographs load lazily.
+
+## Cambridge stage photographs — 2026-11-03
+
+Four distinct stock photographs illustrate the Cambridge stages; they do not depict BM school facilities or students. Stored locally under the Unsplash License.
+
+- `cambridge-primary.jpg`: https://images.unsplash.com/photo-1588072432836-e10032774350
+- `cambridge-lower.jpg`: https://images.unsplash.com/photo-1577896851231-70ef18881754
+- `cambridge-upper.jpg`: https://images.unsplash.com/photo-1532094349884-543bc11b234d
+- `cambridge-advanced.jpg`: https://images.unsplash.com/photo-1523240795612-9a054b0db644
+
+Primary stage now uses `learning-materials.jpg`, showing books, pencils, and an apple on a learning desk. `cambridge-primary.jpg` is retained but unused. The other three Cambridge stage photos remain unchanged.
+
+Primary stage replacement: `cambridge-primary-new.jpg`, children doing classroom writing exercises. Source: https://www.pexels.com/photo/children-in-classroom-1822387/ (Pexels License). This is illustrative stock photography, not BM students. Supersedes the earlier Primary photo selections.
+
+Current Primary stage: `cambridge-primary-classroom.png`, supplied by the user on 2026-11-03, showing children raising their hands in class. Replaces the previous Primary stock photograph.
+
+Current Upper Secondary stage: `cambridge-upper-classroom.png`, supplied by the user on 2026-11-03, showing a teacher guiding students in a group activity. Replaces the laboratory glassware stock photograph.
+
+Current Advanced stage: `cambridge-advanced-classroom.png`, supplied by the user on 2026-11-03, showing students attending a classroom lesson. Replaces the earlier Advanced stock photograph.

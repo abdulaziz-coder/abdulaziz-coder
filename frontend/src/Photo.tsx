@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { useLanguage } from './i18n';
 
 export const photos = {
+  primary: { src: '/photos/cambridge-primary-classroom.png', alt: 'Children raising their hands during a classroom lesson' },
+  lower: { src: '/photos/cambridge-lower.jpg', alt: 'Students taking part in a classroom discussion' },
+  upper: { src: '/photos/cambridge-upper-classroom.png', alt: 'Teacher guiding secondary students through a group classroom activity' },
+  advanced: { src: '/photos/cambridge-advanced-classroom.png', alt: 'Students attending a lesson in a bright classroom' },
+
   campus: { src: '/photos/bm-school-campus.png', alt: 'Boborahim Mashrab school building with blue-and-white balloons at the entrance' },
   community: { src: '/photos/learning-materials.jpg', alt: 'Books, pencils, and an apple arranged on a learning desk' },
   lesson: { src: '/photos/classroom-hero.jpg', alt: 'Students listening to their teacher in a classroom' },

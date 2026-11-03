@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 import Admissions from './Admissions';
 import Brand from './Brand';
@@ -17,22 +17,18 @@ const experiences = [
   { name: 'Connect & contribute', word: 'belong.', text: 'A community to grow with. Our ambition is a place where listening, working together, and caring for others are part of everyday learning.' },
 ];
 export default function App() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selected, setSelected] = useState(0);
   const [experience, setExperience] = useState(0);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
   const stages = [
-    { id: 'primary', name: 'Cambridge Primary', ages: '5–11', qualification: 'A foundation for discovery', description: 'Build strong foundations in knowledge, curiosity, and confidence, ready for the next stage of learning.' },
-    { id: 'lower', name: 'Cambridge Lower Secondary', ages: '11–14', qualification: 'Growing knowledge and independence', description: 'Deepen understanding and develop independent thinking as students prepare for upper secondary learning.' },
-    { id: 'upper', name: 'Cambridge Upper Secondary', ages: '14–16', qualification: 'IGCSE', description: 'Develop subject knowledge and skills through the Cambridge IGCSE pathway, preparing for further study.' },
-    { id: 'advanced', name: 'Cambridge Advanced', ages: '16–19', qualification: 'AS & A Level', description: 'Explore subjects in greater depth through Cambridge AS & A Level, preparing for university and further education.' },
+    { id: 'primary', photo: photos.primary, name: 'Cambridge Primary', ages: '5–11', qualification: 'A foundation for discovery', description: 'Build strong foundations in knowledge, curiosity, and confidence, ready for the next stage of learning.' },
+    { id: 'lower', photo: photos.lower, name: 'Cambridge Lower Secondary', ages: '11–14', qualification: 'Growing knowledge and independence', description: 'Deepen understanding and develop independent thinking as students prepare for upper secondary learning.' },
+    { id: 'upper', photo: photos.upper, name: 'Cambridge Upper Secondary', ages: '14–16', qualification: 'IGCSE', description: 'Develop subject knowledge and skills through the Cambridge IGCSE pathway, preparing for further study.' },
+    { id: 'advanced', photo: photos.advanced, name: 'Cambridge Advanced', ages: '16–19', qualification: 'AS & A Level', description: 'Explore subjects in greater depth through Cambridge AS & A Level, preparing for university and further education.' },
   ];
-  const activeIndex = selected;
-  const current = stages[activeIndex];
   return <>
     <a className="skip" href="#main">{t("Skip to content")}</a>
     <motion.div className="scroll-progress" style={{ scaleX: reduced ? scrollYProgress : progress }} />
@@ -44,8 +40,10 @@ export default function App() {
       <section className="about section" id="about"><Reveal><p className="eyebrow">{t("WELCOME TO BOBORAHIM MASHRAB")}</p><h2>{t("Great learning begins")}<br />{t("with")} {" "}<em>{t("being yourself.")}</em></h2></Reveal><Reveal className="about-copy"><p>{t("Our vision for Boborahim Mashrab International School is simple: a community where young people feel known, inspired, and ready to explore the world.")}</p><p>{t("We’re shaping a school experience around thoughtful learning, meaningful connections, and the joy of discovery.")}</p><a className="text-link" href="#learning">{t("Find your starting point")}<span>↗</span></a></Reveal></section>
       <section className="learning section cambridge-section" id="learning"><Reveal>
         <div className="section-heading"><div><p className="eyebrow">{t("THE CAMBRIDGE PATHWAY")}</p><h2>{t("A world of learning.")}<br /><em>{t("One step at a time.")}</em></h2></div><p>{t("Your child’s education develops step by step through the Cambridge pathway.")}</p></div>
-        <div className="cambridge-path" role="tablist" aria-label={t("Learning stages")}>{stages.map((stage, index) => <button ref={el => { tabs.current[index] = el; }} key={stage.id} id={`tab-${stage.id}`} role="tab" aria-selected={activeIndex === index} aria-controls="cambridge-panel" tabIndex={activeIndex === index ? 0 : -1} onClick={() => setSelected(index)} onKeyDown={event => { let next: number | undefined; if (event.key === 'ArrowRight') next = (index + 1) % stages.length; if (event.key === 'ArrowLeft') next = (index + stages.length - 1) % stages.length; if (event.key === 'Home') next = 0; if (event.key === 'End') next = stages.length - 1; if (next !== undefined) { event.preventDefault(); setSelected(next); tabs.current[next]?.focus(); } }}><span className="path-step">0{index + 1}<span aria-hidden="true">↗</span></span><span className="path-age">{t('Ages')} {stage.ages}</span><strong>{stage.name}</strong><span className="path-qualification">{t(stage.qualification)}</span></button>)}</div>
-        <div id="cambridge-panel" role="tabpanel" aria-labelledby={`tab-${current.id}`} tabIndex={0} className="cambridge-detail"><Photo photo={activeIndex < 2 ? photos.lesson : photos.writing} className="cambridge-photo" /><AnimatePresence mode="wait" initial={false}><motion.div key={`${current.id}-${locale}`} initial={{ opacity: 0, y: reduced ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .2 }} className="cambridge-copy"><p className="eyebrow">{t('Ages')} {current.ages} · {t(current.qualification)}</p><h3>{current.name}</h3><p>{t(current.description)}</p><a className="button" href="#admissions">{t('Explore this stage')} <span>↗</span></a></motion.div></AnimatePresence></div>
+        <div className="curriculum-cards">{stages.map((stage, index) => <article className="curriculum-card" key={stage.id} aria-labelledby={`stage-title-${stage.id}`}>
+          <Photo photo={stage.photo} className="curriculum-card-photo" />
+          <div className="curriculum-card-content"><div className="curriculum-card-meta"><span>{t('Ages')} {stage.ages}</span><span aria-hidden="true">0{index + 1}</span></div><h3 id={`stage-title-${stage.id}`}>{stage.name}</h3><p className="curriculum-card-qualification">{t(stage.qualification)}</p><p className="curriculum-card-description">{t(stage.description)}</p><a href="#admissions" className="curriculum-card-link" aria-label={`${t('Explore this stage')}: ${stage.name}`}>{t('Explore this stage')} <span aria-hidden="true">↗</span></a></div>
+        </article>)}</div>
         <div className="cambridge-note"><p>{t('Each stage develops knowledge and prepares students for the next step in education.')}</p><small>{t('Our school accepts students in Grades 1–11 only.')}</small></div>
       </Reveal></section>
       <section className="life section" id="life"><Reveal className="life-visual life-with-photo"><AnimatePresence initial={false}><motion.div key={`photo-${experience}`} className="life-photo-layer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : .45 }}><Photo photo={[photos.writing, photos.lesson, photos.community][experience]} className="life-photo" /></motion.div></AnimatePresence><div className="life-photo-shade" aria-hidden="true" /><p className="eyebrow text-white/60">{t("A LITTLE MORE YOU, EVERY DAY")}</p><AnimatePresence mode="wait"><motion.div key={experience} className="life-word mt-12" initial={{ opacity: 0, y: reduced ? 0 : 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>{t(experiences[experience].word)}<br /><em>{t("at school.")}</em></motion.div></AnimatePresence><span className="life-star" aria-hidden="true">✳</span><span className="life-caption">{t("MORE THAN A CLASSROOM")}</span></Reveal><Reveal className="life-copy"><p className="eyebrow">{t("ROOM FOR EVERY SIDE OF YOU")}</p><h2>{t("Find what")}<br /><em>{t("makes you, you.")}</em></h2><p>{t("Learning goes beyond lessons. Explore our vision for creativity, movement, and connection.")}</p><div className="experience-list">{experiences.map((item, index) => <div key={t(item.name)} className="border-t border-brand/15"><button className="flex w-full items-center gap-4 py-5 text-left text-sm" id={`experience-${index}`} aria-expanded={experience === index} aria-controls={`experience-panel-${index}`} onClick={() => setExperience(index)}><span className="text-xs text-slate-500">0{index + 1}</span>{t(item.name)}<span className="ml-auto text-xl">{experience === index ? '−' : '+'}</span></button><motion.div id={`experience-panel-${index}`} role="region" aria-labelledby={`experience-${index}`} animate={{ height: experience === index ? 'auto' : 0, opacity: experience === index ? 1 : 0 }} transition={{ duration: reduced ? 0 : .35, ease: [.22, 1, .36, 1] }} className="overflow-hidden" inert={experience !== index}><p className="pb-5 pl-8 text-xs leading-7 text-slate-600">{t(item.text)}</p></motion.div></div>)}</div></Reveal></section>

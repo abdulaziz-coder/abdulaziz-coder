@@ -7,6 +7,16 @@ export const languages: { code: Locale; label: string; short: string }[] = [
 ];
 
 export const uz = {
+  "Students attending a lesson in a bright classroom": "Yorug‘ sinfda darsda qatnashayotgan o‘quvchilar",
+  "Teacher guiding secondary students through a group classroom activity": "O‘qituvchi o‘rta ta’lim o‘quvchilariga guruh mashg‘ulotida yordam bermoqda",
+  "Children raising their hands during a classroom lesson": "Sinfdagi dars davomida qo‘l ko‘tarayotgan bolalar",
+  "Children writing in class with guidance from a teacher": "O‘qituvchi yordamida sinfda yozuv mashqlarini bajarayotgan bolalar",
+  "Teacher holding flowers surrounded by students in a bright classroom": "Yorug‘ sinfda o‘quvchilar orasida gul tutgan o‘qituvchi",
+  "Children working on classroom activities": "Sinfda mashg‘ulot bajarayotgan bolalar",
+  "Students taking part in a classroom discussion": "Sinfdagi muhokamada qatnashayotgan o‘quvchilar",
+  "Laboratory glassware for science learning": "Tabiiy fanlarni o‘rganish uchun laboratoriya idishlari",
+  "Students collaborating on a study project": "O‘quv loyihasi ustida hamkorlik qilayotgan talabalar",
+
   "THE CAMBRIDGE PATHWAY": "CAMBRIDGE TA’LIM YO‘LI",
   "A world of learning.": "Bilimlar olami.",
   "One step at a time.": "Bosqichma-bosqich.",
@@ -107,6 +117,16 @@ export const uz = {
 } as const;
 
 export const ru: Record<keyof typeof uz, string> = {
+  "Students attending a lesson in a bright classroom": "Ученики на занятии в светлом классе",
+  "Teacher guiding secondary students through a group classroom activity": "Учитель помогает старшеклассникам во время группового занятия",
+  "Children raising their hands during a classroom lesson": "Дети поднимают руки во время урока в классе",
+  "Children writing in class with guidance from a teacher": "Дети выполняют письменные задания в классе с помощью учителя",
+  "Teacher holding flowers surrounded by students in a bright classroom": "Учитель с цветами в окружении учеников в светлом классе",
+  "Children working on classroom activities": "Дети выполняют задания в классе",
+  "Students taking part in a classroom discussion": "Ученики участвуют в обсуждении на уроке",
+  "Laboratory glassware for science learning": "Лабораторная посуда для изучения естественных наук",
+  "Students collaborating on a study project": "Студенты совместно работают над учебным проектом",
+
   "THE CAMBRIDGE PATHWAY": "ОБРАЗОВАТЕЛЬНЫЙ ПУТЬ CAMBRIDGE",
   "A world of learning.": "Мир знаний.",
   "One step at a time.": "Шаг за шагом.",

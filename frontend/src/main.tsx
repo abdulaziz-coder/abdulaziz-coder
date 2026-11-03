@@ -10,6 +10,7 @@ import './modern.css';
 import './react.css';
 import './photos.css';
 import './languages.css';
+import './responsive.css';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 60_000 } } });
 const Admin = lazy(() => import('./Admin'));
